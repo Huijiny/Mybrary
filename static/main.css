@@ -16,16 +16,39 @@
 
 .search_input{
     display: flex;
+    flex-direction : column;
     align-items: center;
     justify-content: center;
 }
 
 .search_input input{
-    width: 50%;
+    width:400px;
     font-size: 30px;
     border: none;
     outline: none;
     border-bottom:1px solid black;
+}
+.search-result-dropdown:hover{
+    background-color:grey;
+}
+
+.scrollable-menu {
+    height: 100px;
+    max-height: 200px;
+    overflow-x: hidden;
+    padding:0;
+}
+
+.scrollable-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.search-result-dropdown{
+    width:400px;
+    display:flex;
+    align-items : center;
+    height: 35px;
+    border-bottom:0.3px solid grey;
 }
 
  /* The Modal (background) */

@@ -26,7 +26,6 @@ def add_library():
     library_object = BeautifulSoup(data.text, 'html.parser')
     library_name = library_object.select('h1.public > strong > a')[0].text
     library_desc = library_object.select('.f4 > span' )[0].text
-    #db저장하는것도 add_library()함수안에서 모두 실행해야하는건가?
     library = {
         'name' : library_name,
         'url' : url_receive,
@@ -42,6 +41,13 @@ def load_main():
     libraries = list(db.libraries.find({},{'_id':0}))
 
     return jsonify({'result':'success','libraries':libraries})
+
+@app.route('/deletecard', methods=['POST'])
+def delete_card():
+    name_receive = request.form['card_name_give']
+    db.libraries.delete_one({'name':name_receive})
+
+    return jsonify({'result':'success'});
 
 if __name__ == '__main__':
     app.run('127.0.0.1',port=5000,debug=True)

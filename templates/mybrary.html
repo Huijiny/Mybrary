@@ -22,9 +22,11 @@
                 <p> Mybrary </p>
             </div>
 
-            <div class="search_input">
-                <input placeholder="search"/> 
+            <div class="btn-group search_input">
+                <input onkeyup="search_filter()" id="search_input" placeholder="search"/>
+                <ul id="search_results_contatier"  class="scrollable-menu"></ul>
             </div>
+
 
            <div class="card-columns libraries"  id="cards-box">
 
