@@ -5,7 +5,11 @@ from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
 db = client.mybraryDB
+
 app = Flask(__name__)
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+
 
 @app.route('/')
 def home():
@@ -17,9 +21,19 @@ def add_library():
     memo_receive = request.form['memo_give']
     tag_receive = request.form['tag_give']
 
+    #tag #별로 구분하기.
+    tags = tag_receive.split("#")
+    tags = tags[1:len(tags)]
+    print(tags);
+    tags_index = []
+    #tag별로 tagdb에 삽입하기.
+    for tag in tags:
+        if(db.tags.find_one({'name':tag}) is None):
+            db.tags.insert_one({'name':tag});
+            tags_index.append(db.tags.find_one({'name':tag})['_id']) #index array로 저장
+            print(tags_index)
     # BeautifulSoup으로 github페이지 들어가서 이름, readme 긁어오기
 
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(url_receive, headers=headers)
 
     #html을 라이브러리 활용해서 검색용이하게.
@@ -30,7 +44,7 @@ def add_library():
         'name' : library_name,
         'url' : url_receive,
         'memo' : memo_receive,
-        'tag' : tag_receive,
+        'tag' : tags_index,
         'description' : library_desc
     }
     db.libraries.insert_one(library);
@@ -39,6 +53,14 @@ def add_library():
 @app.route('/loadmain', methods=['GET'])
 def load_main():
     libraries = list(db.libraries.find({},{'_id':0}))
+
+    for library in libraries:
+        tag_name = []
+        for tag in library['tag']:
+            print(type(tag))
+            tag_name.append(db.tags.find_one({'_id':tag} )['name'])
+            print(tag_name)
+        library['tag'] = tag_name
 
     return jsonify({'result':'success','libraries':libraries})
 
