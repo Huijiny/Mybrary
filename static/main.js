@@ -25,6 +25,7 @@ var tags = [];
     searched_lib.map(library =>$('#cards-box').append(
                     `<div class="card fixed-width">\
                     <div class="card-body">\
+                    <button onclick="delete_card('${library.name}')">X</button>\
                     <h5 class="card-title">${library.name}</h5>\
                     <h6 class="card-subtitle mb-2 text-muted">${library.tag}</h6>\
                     <p class="card-text">${library.description}</p>\
@@ -35,17 +36,17 @@ var tags = [];
 
  }
 
- const search_filter = () => {
-
-    value = $('#search_input').val();
-    if(value === ''){
-        click_search_lib('');
-    }else{
-        let filtered = tags.filter(tag => tag.includes(value));
-         $("#search_results_contatier").empty();
-        filtered.map(tag => $("#search_results_contatier").append(`<li class="search-result-dropdown" onclick="click_search_lib('${tag}')">${tag}</li>`));
-    }
- }
+// const search_filter = () => {
+//
+//    value = $('#search_input').val();
+//    if(value === ''){
+//        click_search_lib('');
+//    }else{
+//        let filtered = tags.filter(tag => tag.includes(value));
+//         $("#search_results_contatier").empty();
+//        filtered.map(tag => $("#search_results_contatier").append(`<li class="search-result-dropdown" onclick="click_search_lib('${tag}')">${tag}</li>`));
+//    }
+// }
 
 
 
@@ -126,3 +127,9 @@ function make_card(library){
  }
 
   loadmain();
+ $(function(){
+    var autocomplete_text = ["자동완성기능","Autocomplete","개발로짜","국이"];
+         $("#search_input").autocomplete({
+            source: autocomplete_text
+      });
+})
