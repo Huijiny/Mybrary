@@ -24,14 +24,19 @@ def add_library():
     #tag #별로 구분하기.
     tags = tag_receive.split("#")
     tags = tags[1:len(tags)]
+
+    for tag in tags:
+        Ntag = tag.strip();
+        tags[tags.index(tag)] = Ntag
+
     print(tags);
     tags_index = []
     #tag별로 tagdb에 삽입하기.
     for tag in tags:
         if(db.tags.find_one({'name':tag}) is None):
             db.tags.insert_one({'name':tag});
-            tags_index.append(db.tags.find_one({'name':tag})['_id']) #index array로 저장
-            print(tags_index)
+        tags_index.append(db.tags.find_one({'name':tag})['_id']) #index array로 저장
+
     # BeautifulSoup으로 github페이지 들어가서 이름, readme 긁어오기
 
     data = requests.get(url_receive, headers=headers)
@@ -57,9 +62,7 @@ def load_main():
     for library in libraries:
         tag_name = []
         for tag in library['tag']:
-            print(type(tag))
             tag_name.append(db.tags.find_one({'_id':tag} )['name'])
-            print(tag_name)
         library['tag'] = tag_name
 
     return jsonify({'result':'success','libraries':libraries})
