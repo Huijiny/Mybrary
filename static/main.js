@@ -2,7 +2,7 @@
 let libraries;
 var modal = document.getElementById('myModal');
 var addBtn = document.getElementById("addBtn");
-var span = document.getElementsByClassName("close")[0]; 
+var span = document.getElementsByClassName("close")[0];
 var tags = [];
 
 
@@ -16,13 +16,15 @@ var tags = [];
 
 
 
- const click_search_lib = (tag) => {
-    $("#search_input").val(tag);
+ const selected_lib = (tag) => {
     $("#search_results_contatier").empty();
 
-    var searched_lib = libraries.filter(library => library.tag.includes(tag));
+    var searchedLib = libraries.filter(library => library.tag.includes(tag));
+    if(tag==''){
+        searchedLib=libraries;
+    }
     $('#cards-box').empty();
-    searched_lib.map(library =>$('#cards-box').append(
+    searchedLib.map(library =>$('#cards-box').append(
                     `<div class="card fixed-width">\
                     <div class="card-body">\
                     <button onclick="delete_card('${library.name}')">X</button>\
@@ -36,21 +38,9 @@ var tags = [];
 
  }
 
-// const search_filter = () => {
-//
-//    value = $('#search_input').val();
-//    if(value === ''){
-//        click_search_lib('');
-//    }else{
-//        let filtered = tags.filter(tag => tag.includes(value));
-//         $("#search_results_contatier").empty();
-//        filtered.map(tag => $("#search_results_contatier").append(`<li class="search-result-dropdown" onclick="click_search_lib('${tag}')">${tag}</li>`));
-//    }
-// }
 
 
-
- const add = () => {
+ const add_card = () => {
 
      //ajax서버통신.
     url_input = $("#url-input").val();
@@ -92,18 +82,32 @@ const loadmain = () => {
             libraries = response['libraries'];
             for(let i=0;i<libraries.length;i++){
                 make_card(libraries[i]);
-                if(libraries[i].tag.indexOf(",")===-1){
-                    tags.push(libraries[i].tag);
-                }else{
-                   tmp=libraries[i].tag.split(",");
-                   let trimedArr = tmp.map(s => s.trim());
-                   tags = tags.concat(trimedArr);
-                }
-                tags=Array.from(new Set(tags));
+                libraries[i].tag.map(function(tag){
+                   if(!tags.includes(tag)){
+                        tags.push(tag);
+                   }
+                });
             }
+             $('#search_input')
+             .keyup(function(){
+                if($(this).val()==''){
+                    selected_lib('');
+                }
+             })
+             .autocomplete({
+             source: tags,
+             appendTo:$("search_input"),
+             select: function(event, ui){
+                console.log(ui.item.value);
+                selected_lib(ui.item.value)
+                }
 
+         });
         }
+
     })
+
+
 }
 
 function make_card(library){
@@ -127,9 +131,8 @@ function make_card(library){
  }
 
   loadmain();
- $(function(){
-    var autocomplete_text = ["자동완성기능","Autocomplete","개발로짜","국이"];
-         $("#search_input").autocomplete({
-            source: autocomplete_text
-      });
-})
+
+// $(function(){
+//    var autocomplete_text = ["자동완성기능","Autocomplete","개발로짜","국이"];
+//
+//})
