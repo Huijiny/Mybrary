@@ -8,7 +8,6 @@ var tags = [];
 
  const popup = () => {addLibModal.style.display = "block";}
  const popup_close = () => {addLibModal.style.display = "none";}
-
  const detail_popup_close = () =>{libDetailModal.style.display="none";}
 
 
