@@ -96,7 +96,6 @@ const loadmain = () => {
              })
              .autocomplete({
              source: tags,
-             appendTo:$("search_input"),
              select: function(event, ui){
                 console.log(ui.item.value);
                 selected_lib(ui.item.value)

@@ -29,6 +29,7 @@
     outline: none;
     border-bottom:1px solid black;
 }
+
 .search-result-dropdown:hover{
     background-color:grey;
 }
