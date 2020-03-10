@@ -27,7 +27,7 @@ var tags = [];
     searchedLib.map(library =>$('#cards-box').append(
                     `<div class="card fixed-width">\
                     <div class="card-body">\
-                    <button onclick="delete_card('${library.name}')">X</button>\
+                    <span style="float:right"><button class="card-del-button" onclick="delete_card('${library.name}')">X</button></span>\
                     <h5 class="card-title">${library.name}</h5>\
                     <h6 class="card-subtitle mb-2 text-muted">${library.tag}</h6>\
                     <p class="card-text">${library.description}</p>\
@@ -112,7 +112,7 @@ const loadmain = () => {
 function make_card(library){
     let tmp_html = `<div class="card fixed-width">\
                     <div class="card-body">\
-                    <button onclick="delete_card('${library.name}')">X</button>
+                    <div style="float:right"><button class="card-del-button" onclick="delete_card('${library.name}')">X</button></div>\
                     <h5 class="card-title">${library.name}</h5>\
                     <h6 class="card-subtitle mb-2 text-muted">${library.tag}</h6>\
                     <p class="card-text">${library.description}</p>\

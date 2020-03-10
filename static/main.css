@@ -30,6 +30,13 @@
     border-bottom:1px solid black;
 }
 
+.card-del-button{
+    border:none;
+    border-radius:5px;
+}
+.card-del-button:hover{
+    background-color: grey;
+}
 .search-result-dropdown:hover{
     background-color:grey;
 }
@@ -94,7 +101,8 @@
 #add-button{
     height: 30px;
     margin-top : 10px;
-    background-color: #ccff66;
+    background-color: #light-grey;
+    border-radius : 5px;
     border: none;
 
 }
@@ -138,13 +146,13 @@
     text-align: center;
     border: none;
     font-size: 30px;
-    background-color: #ccff66;
+    background-color: #light-grey;
     border-radius: 10px;
    
 }
 #popup-add-btn:hover,
 #popup-add-btn:focus{
-    background-color: slategray;
+    background-color: grey;
 }
 
 .popup-title{
