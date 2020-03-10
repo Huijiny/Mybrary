@@ -6,13 +6,11 @@ var span = document.getElementsByClassName("close")[0];
 var tags = [];
 
 
- const popup = () => {
-    modal.style.display = "block";
- }
+ const popup = () => {addLibModal.style.display = "block";}
+ const popup_close = () => {addLibModal.style.display = "none";}
 
- const popup_close = () => {
-     modal.style.display = "none";
- }
+ const detail_popup_close = () =>{libDetailModal.style.display="none";}
+
 
 
 
@@ -25,7 +23,7 @@ var tags = [];
     }
     $('#cards-box').empty();
     searchedLib.map(library =>$('#cards-box').append(
-                    `<div class="card fixed-width">\
+                    `<div class="card" >\
                     <div class="card-body">\
                     <span style="float:right"><button class="card-del-button" onclick="delete_card('${library.name}')">X</button></span>\
                     <h5 class="card-title">${library.name}</h5>\
@@ -111,7 +109,7 @@ const loadmain = () => {
 }
 
 function make_card(library){
-    let tmp_html = `<div class="card fixed-width">\
+    let tmp_html = `<div class="card" >\
                     <div class="card-body">\
                     <div style="float:right"><button class="card-del-button" onclick="delete_card('${library.name}')">X</button></div>\
                     <h5 class="card-title">${library.name}</h5>\
@@ -130,9 +128,25 @@ function make_card(library){
      }
  }
 
-  loadmain();
 
-// $(function(){
-//    var autocomplete_text = ["자동완성기능","Autocomplete","개발로짜","국이"];
-//
-//})
+  $(document).ready(function(){
+    loadmain();
+    //// 이 코드 왜 안먹어
+    $("#cards-box").on("click",".card",function(event){
+        libDetailModal.style.display="block";
+        var lib_name = $(this).find("h5")[0].innerHTML;
+
+        var lib = libraries.filter(library => library.name===lib_name);
+
+        $(".popup_title h2").html(lib_name);
+        $("#url-label").html(lib[0].url);
+        $("#url-label").attr('href',lib[0].url);
+        var dtag = '';
+        lib[0].tag.map(t => {dtag += ` #${t}`;})
+        $("#tag-label").html(dtag);
+
+        $("#memo-label").html(lib[0].memo);
+
+    });
+
+  });

@@ -39,8 +39,8 @@
 
         </div>
 
-        <!-- modal 창 구현 -->
-        <div id="myModal" class="modal">
+        <!-- 라이브러리 add modal창 구현 -->
+        <div id="addLibModal" class="modal">
  
             <!-- Modal content -->
             <div class="modal-content">
@@ -50,17 +50,17 @@
                
                 <div class="wrapper">
                     <div class="popup_title">
-                        <h1>ADD IT</h1>
+                        <h2>ADD IT</h2>
                     </div>
                     <div class="popup-content">
                         <div >
                             URL: <input id="url-input"/>
                         </div>
                         <div>
-                            MEMO: <input id="memo-input"/>
+                            TAG: <input id="tag-input" placeholder="#android #iOS #이미지관리"/>
                         </div>
                         <div>
-                            TAG: <input id="tag-input" placeholder="#android #iOS #이미지관리"/>
+                            MEMO: <input id="memo-input"/>
                         </div>
                     </div>
                     <div class="footer">
@@ -70,6 +70,36 @@
             
             </div>
        
+          </div>
+
+        <!-- 상세뷰modal창 구현 -->
+        <div id="libDetailModal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="close">
+                    <span class="closeBtn" onclick="detail_popup_close()"> &times;</span>
+                </div>
+
+                <div class="wrapper">
+                    <div class="popup_title">
+                        <h2>Library</h2>
+                    </div>
+                    <div class="popup-content">
+                        <div>
+                            URL: <a href="#" id="url-label"></a>
+                        </div>
+                        <div>
+                            TAG: <label id="tag-label"/>
+                        </div>
+                        <div>
+                            MEMO: <label id="memo-label"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
           </div>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
