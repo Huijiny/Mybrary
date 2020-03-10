@@ -79,6 +79,7 @@ const loadmain = () => {
         url:"/loadmain",
         data:{},
         success: function(response){
+            console.log(response);
             libraries = response['libraries'];
             for(let i=0;i<libraries.length;i++){
                 make_card(libraries[i]);
