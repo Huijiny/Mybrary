@@ -138,7 +138,7 @@ function make_card(library){
 
         var lib = libraries.filter(library => library.name===lib_name);
 
-        $(".popup_title h2").html(lib_name);
+        $(".popup_title #detail_title").html(lib_name);
         $("#url-label").html(lib[0].url);
         $("#url-label").attr('href',lib[0].url);
         var dtag = '';
